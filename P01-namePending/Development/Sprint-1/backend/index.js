@@ -1,5 +1,20 @@
 const express = require("express");
+
+// creating supabase client
+const { createClient } = require('@supabase/supabase-js');
+const userAuth = require('./userAuth');
+
+const supabaseUrl = 'https://wikvasjknjglndxhtjnk.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indpa3Zhc2prbmpnbG5keGh0am5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDE2MjA1MTUsImV4cCI6MjAxNzE5NjUxNX0.L6-OCZNNI0d6xE0bbwsjvX5KPvzv-RdVagKF-QZO7ss';
+const supabase = createClient(supabaseUrl, supabaseKey);
+
 const app = express();
+
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+
+app.use('/auth', userAuth(supabase));
+
 const http = require("http");
 const server = http.createServer(app);
 const Server = require("socket.io").Server;

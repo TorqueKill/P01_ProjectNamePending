@@ -24,6 +24,7 @@
   import { writable } from "svelte/store";
   import { gameHistory } from "$lib/dummyGames";
   import { quiz1, quiz2, quiz3, quiz4, quiz5 } from "$lib/dummyQuiz";
+  import { user } from "$lib/userStore.js";
 
   // @ts-ignore
   const detailedPlayerHistory = writable([]);
@@ -31,7 +32,7 @@
   const hostHistory = writable([]);
   let showPlayerHistory = false;
   let showHostHistory = false;
-  let playerUsername = "Player1";
+  let playerUsername = $user.userName;
 
   /**
    * @param {string} username
@@ -79,8 +80,11 @@
   }
 
   function toggleHostHistory() {
-    showHostHistory = !showHostHistory;
-    if (showHostHistory) {
+
+    if ($user.isHost)
+    {
+      showHostHistory = !showHostHistory;
+      if (showHostHistory) {
       /**
        * @type {{ quiz: string; players: { name: string; score: string; }[]; }[]}
        */
@@ -102,14 +106,20 @@
     } else {
       hostHistory.set([]);
     }
+    }
+    
   }
 
   function deleteHistory() {
-    window.alert("Note: Hsitroy restored on refreshing the page.");
-    detailedPlayerHistory.set([]);
-    hostHistory.set([]);
-    showPlayerHistory = false;
-    showHostHistory = false;
+
+    if ($user.isHost)
+    {
+      window.alert("Note: History restored on refreshing the page.");
+      detailedPlayerHistory.set([]);
+      hostHistory.set([]);
+      showPlayerHistory = false;
+      showHostHistory = false;
+    }
   }
 </script>
 
@@ -134,7 +144,7 @@
   {/each}
 {/if}
 
-{#if showHostHistory}
+{#if showHostHistory && $user.isHost}
   {#each $hostHistory as quiz}
     <h3>{quiz.quiz}</h3>
     <ul>

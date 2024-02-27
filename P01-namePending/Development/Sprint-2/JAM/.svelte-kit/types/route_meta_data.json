@@ -1,0 +1,36 @@
+{
+	"/": [
+		"src/routes/+layout.js",
+		"src/routes/+layout.js"
+	],
+	"/CreateQuestion": [
+		"src/routes/+layout.js"
+	],
+	"/createQuiz": [
+		"src/routes/+layout.js"
+	],
+	"/dummyLogin": [
+		"src/routes/+layout.js"
+	],
+	"/gameEnd": [
+		"src/routes/+layout.js"
+	],
+	"/gameSession": [
+		"src/routes/+layout.js"
+	],
+	"/hostOrPlayer": [
+		"src/routes/+layout.js"
+	],
+	"/signIn": [
+		"src/routes/+layout.js"
+	],
+	"/signUp": [
+		"src/routes/+layout.js"
+	],
+	"/viewHistory": [
+		"src/routes/+layout.js"
+	],
+	"/waitLobby": [
+		"src/routes/+layout.js"
+	]
+}
